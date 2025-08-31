@@ -47,6 +47,9 @@ model Business {
   owner      User    @relation(fields: [ownerId], references: [id])
 
   products   Product[]
+
+  // Soft delete
+  deletedAt  DateTime?
 }
 
 model BusinessPicture {
@@ -66,6 +69,9 @@ model Product {
   business   Business  @relation(fields: [businessId], references: [id])
 
   images     ProductImage[]
+
+  // Soft delete
+  deletedAt  DateTime?
 }
 
 model ProductImage {
@@ -83,8 +89,11 @@ model User {
   phone      String
 
   business   Business?
-  sessions   Session[]   // 👈 opposite side of Session.user
-  tokens     Token[]     // 👈 opposite side of Token.user
+  sessions   Session[]
+  tokens     Token[]
+
+  // Soft delete
+  deletedAt  DateTime?
 }
 
 model Session {
@@ -116,3 +125,4 @@ enum TokenType {
   EMAIL_VERIFICATION
   REFRESH
 }
+
