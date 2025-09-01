@@ -1,0 +1,52 @@
+---
+title: Getting Started
+description: How to set up, configure, and run the SRC Market backend locally.
+---
+
+## 🚀 Overview
+
+This guide walks you through setting up **SRC Market** for local development — from installing dependencies to running database migrations and seeding initial data.
+
+---
+
+## 1️⃣ Prerequisites
+
+Before you begin, make sure you have:
+
+- **Node.js** v18+ (LTS recommended)
+- **npm** v9+ or **pnpm**/**yarn** (your choice)
+- **PostgreSQL** (or the database configured in `schema.prisma`)
+- **Git** for version control
+
+---
+
+## 2️⃣ Clone the Repository
+
+```bash
+git clone https://github.com/verzo/srcmarket-backend.git
+cd srcmarket-backend
+
+npm install
+# or
+pnpm install
+# or
+yarn install
+
+cp .env.example .env
+
+
+DATABASE_URL="postgresql://user:password@localhost:5432/"
+JWT_SECRET="your-secret-key"
+PORT=3000
+
+
+npx prisma db seed
+
+
+npm run dev
+
+
+http://localhost:3000
+
+
+curl http://localhost:3000/health

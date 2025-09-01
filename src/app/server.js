@@ -1,12 +1,14 @@
-import express from 'express'
-import router from './routes/index.js'
+// src/app/server.js
+import express from 'express';
+import routes from '#routes/index.js';
+// import errorMiddleware from '#app/middleware/error.middleware.js';
+// import loggerMiddleware from '#app/middleware/logger.middleware.js';
 
-const app = express()
+const app = express();
 
-app.use('/api', router)
+app.use(express.json());
+// app.use(loggerMiddleware);
+app.use('/api', routes);
+// app.use(errorMiddleware);
 
-app.get('/', (req, res) => {
-  res.send('Verzo API is running')
-})
-
-export default app
+export default app;

@@ -6,24 +6,30 @@ This repository contains the API, business logic, and database layer for managin
 ---
 
 ## 📂 Project Structure
-
+```
 src/
-│
-├── app/                  # Application entry points & HTTP layer
-│   ├── server.ts         # Express/Fastify/Koa bootstrap
-│   ├── routes/           # Route definitions grouped by feature
-│   └── middlewares/      # Auth, logging, error handling
-│
-├── modules/              # Core business domains (each self-contained)
-│   ├── products/
-│   │   ├── product.controller.ts
-│   │   ├── product.service.ts
-│   │   ├── product.repository.ts
-│   │   └── product.schema.ts  # Zod/validation schemas
-│   ├── users/
-│   │   ├── ...
-│   └── orders/
-│       ├── ...
+  app/
+    server.ts
+    routes/
+      auth.routes.ts       # Mounts /auth endpoints
+    middlewares/
+      auth.middleware.ts   # Protects routes (JWT/session check)
+  modules/
+    auth/
+      auth.controller.ts   # Handles HTTP requests/responses
+      auth.service.ts      # Business logic (login, signup, refresh)
+      auth.repository.ts   # DB access for users/tokens
+      auth.schema.ts       # Zod validation for request bodies
+    products/
+      product.controller.ts
+      product.service.ts
+      product.repository.ts
+      product.schema.ts
+    users/
+      user.controller.ts
+      user.service.ts
+      user.repository.ts
+      user.schema.ts```
 │
 ├── prisma/               # Prisma-specific code (isolated)
 │   ├── schema.prisma
@@ -43,8 +49,7 @@ src/
 │   └── index.d.ts
 │
 └── index.ts              # Entry point for running app (calls app/server)
-
-
+```
 ---
 
 ## 🔌 API Endpoints

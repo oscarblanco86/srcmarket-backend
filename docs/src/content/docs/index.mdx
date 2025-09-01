@@ -4,19 +4,6 @@ description: Technical documentation for the SRC Market backend — architecture
 template: splash
 hero:
   tagline: Your one‑stop reference for building, running, and integrating with SRC Market.
-  image:
-    file: ../../assets/srcmarket-hero.webp
-  actions:
-    - text: Get Started
-      link: /getting-started/
-      icon: right-arrow
-    - text: View API Reference
-      link: /api/overview/
-      icon: code
-    - text: Project Repository
-      link: https://github.com/verzo/srcmarket-backend
-      icon: external
-      variant: minimal
 ---
 
 import { Card, CardGrid } from '@astrojs/starlight/components';
@@ -24,17 +11,16 @@ import { Card, CardGrid } from '@astrojs/starlight/components';
 ## Explore the Docs
 
 <CardGrid stagger>
-    <Card title="Architecture & Folder Structure" icon="folder">
+    <Card title="Getting Started">
+        Install, configure, and run SRC Market locally.
+    </Card>
+    <Card title="Architecture & Folder Structure">
         Understand how the backend is organized — from `app/` to `modules/` and `prisma/`.
     </Card>
-    <Card title="API Endpoints" icon="api">
+    <Card title="API Reference">
         Full list of endpoints with methods, access levels, and request/response examples.
     </Card>
-    <Card title="Setup & Local Development" icon="wrench">
-        Step‑by‑step guide to running SRC Market locally, including migrations and seeding.
-    </Card>
-    <Card title="Deployment Guide" icon="rocket">
+    <Card title="Deployment Guide">
         Instructions for deploying to production environments.
     </Card>
 </CardGrid>
-

@@ -1,0 +1,106 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Business {
+  id       Int     @id @default(autoincrement())
+  name     String
+  logo     String?
+  address  String
+  category String
+
+  pictures BusinessPicture[]
+  ownerId  Int               @unique
+  owner    User              @relation(fields: [ownerId], references: [id])
+
+  products Product[]
+
+  // Soft delete
+  deletedAt DateTime?
+}
+
+model BusinessPicture {
+  id         Int      @id @default(autoincrement())
+  url        String
+  businessId Int
+  business   Business @relation(fields: [businessId], references: [id])
+}
+
+model Product {
+  id       Int    @id @default(autoincrement())
+  name     String
+  category String
+  price    Float
+
+  businessId Int
+  business   Business @relation(fields: [businessId], references: [id])
+
+  images ProductImage[]
+
+  // Soft delete
+  deletedAt DateTime?
+}
+
+model ProductImage {
+  id        Int     @id @default(autoincrement())
+  url       String
+  productId Int
+  product   Product @relation(fields: [productId], references: [id])
+}
+
+model User {
+  id       Int    @id @default(autoincrement())
+  name     String
+  mail     String @unique
+  password String
+  phone    String
+
+  business Business?
+  sessions Session[]
+  tokens   Token[]
+
+  // Soft delete
+  deletedAt DateTime?
+}
+
+model Session {
+  id     Int  @id @default(autoincrement())
+  userId Int
+  user   User @relation(fields: [userId], references: [id])
+
+  sessionToken String   @unique
+  ipAddress    String?
+  userAgent    String?
+  createdAt    DateTime @default(now())
+  expiresAt    DateTime
+}
+
+model Token {
+  id     Int  @id @default(autoincrement())
+  userId Int
+  user   User @relation(fields: [userId], references: [id])
+
+  type       TokenType
+  token      String    @unique
+  createdAt  DateTime  @default(now())
+  expiresAt  DateTime
+  consumedAt DateTime?
+}
+
+enum TokenType {
+  RESET_PASSWORD
+  EMAIL_VERIFICATION
+  REFRESH
+}
